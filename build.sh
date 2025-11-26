@@ -7,7 +7,4 @@ pip install -r requirements.txt
 echo "=== APLICANDO MIGRACIONES ==="
 python manage.py migrate
 
-echo "=== RECOLECTANDO ARCHIVOS ESTÁTICOS ==="
-python manage.py collectstatic --noinput
-
 echo "=== BUILD COMPLETADO ==="

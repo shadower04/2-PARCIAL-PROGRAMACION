@@ -77,7 +77,7 @@ if 'RENDER' in os.environ:
     ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME'), 'localhost', '127.0.0.1']
     
     # Configuración de base de datos para Render
-    import dj_database_url
+    import dj_database_url  # ← Mover esta línea DENTRO del if
     DATABASES = {
         'default': dj_database_url.config(
             default=os.environ.get('DATABASE_URL'),
