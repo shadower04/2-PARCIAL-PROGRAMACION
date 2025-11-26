@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
 
 {% block content %}
 <div class="row justify-content-center">
@@ -11,8 +10,8 @@
             <div class="card-body">
                 <form method="post">
                     {% csrf_token %}
-                    {{ form|crispy }}
-                    <div class="form-group">
+                    {{ form.as_p }}
+                    <div class="form-group mt-4">
                         <button type="submit" class="btn btn-primary">Guardar Alumno</button>
                         <a href="{% url 'lista_alumnos' %}" class="btn btn-secondary">Cancelar</a>
                     </div>

@@ -12,13 +12,16 @@ def registro(request):
             user = form.save()
             
             # Enviar correo de bienvenida
-            send_mail(
-                '¡Bienvenido al Sistema de Alumnos!',
-                f'Hola {user.username},\n\nGracias por registrarte en nuestro sistema.',
-                settings.DEFAULT_FROM_EMAIL,
-                [user.email],
-                fail_silently=False,
-            )
+            try:
+                send_mail(
+                    '¡Bienvenido al Sistema de Alumnos!',
+                    f'Hola {user.username},\n\nGracias por registrarte en nuestro sistema.',
+                    settings.DEFAULT_FROM_EMAIL,
+                    [user.email],
+                    fail_silently=False,
+                )
+            except:
+                pass  # Si falla el email, continuar igual
             
             login(request, user)
             return redirect('dashboard')

@@ -1,6 +1,6 @@
 Django==5.2.8
-django-bootstrap4==25.3
-django-crispy-forms==2.5
+# django-bootstrap4==25.3  ← Comenta
+# django-crispy-forms==2.5  ← Comenta
 gunicorn==23.0.0
 pillow==12.0.0
 reportlab==4.4.5
@@ -11,4 +11,3 @@ asgiref==3.11.0
 sqlparse==0.5.3
 tzdata==2025.2
 soupsieve==2.8
-dj-database-url==2.1.0
