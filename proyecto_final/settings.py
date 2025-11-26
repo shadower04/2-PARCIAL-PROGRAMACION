@@ -3,7 +3,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'tu-clave-secreta-aqui'
+SECRET_KEY = 'aoma gbms qrwj pjf'
 DEBUG = True
 ALLOWED_HOSTS = []
 
@@ -61,31 +61,16 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-LOGIN_URL = 'login'  # ← Esta línea
-LOGIN_REDIRECT_URL = 'dashboard'  # ← Esta línea ya debería existir
-LOGOUT_REDIRECT_URL = 'login'  # ← Esta línea ya debería existir
-# Configuración de email (para desarrollo)
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'login'
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# Para producción usar:
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-#CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
-# Configuración para producción
 if 'RENDER' in os.environ:
-    DEBUG = False
-    ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME'), 'localhost', '127.0.0.1']
+    ALLOWED_HOSTS = [os.environ['RENDER']]
     
-    # Configuración de base de datos para Render
-    import dj_database_url  # ← Mover esta línea DENTRO del if
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=os.environ.get('DATABASE_URL'),
-            conn_max_age=600
-        )
-    }
-    
-    # Configuración de archivos estáticos
+    # Configuración de archivos estáticos para producción
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     
@@ -94,21 +79,21 @@ if 'RENDER' in os.environ:
     EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
     EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
     EMAIL_USE_TLS = True
-    EMAIL_HOST_USER = os.environ.get('maxialzogaray700@gmail.com')
-    EMAIL_HOST_PASSWORD = os.environ.get('aoma gbms qrwj pjf')
-    DEFAULT_FROM_EMAIL = os.environ.get('maxialzogaray700@gmail.com')
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+    DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', '')
     
 else:
     # Configuración para desarrollo
     DEBUG = True
-    ALLOWED_HOSTS = []
-    DATABASES = {
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     
     #CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
    # CRISPY_TEMPLATE_PACK = "bootstrap4"
