@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2>Scraping Educativo</h2>
+        <p class="text-muted">Busca información educativa en Wikipedia</p>
+        
+        <div class="card mb-4">
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="col-md-8">
+                            <input type="text" name="palabra_clave" 
+                                   class="form-control" 
+                                   placeholder="Ingresa una palabra clave (ej: Python, Matemáticas, Historia)"
+                                   required>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary btn-block">
+                                🔍 Buscar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-check mt-2">
+                        <input type="checkbox" name="enviar_email" id="enviar_email" class="form-check-input">
+                        <label for="enviar_email" class="form-check-label">
+                            Enviar resultados por email
+                        </label>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% if resultados %}
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Resultados para "{{ request.POST.palabra_clave }}"</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Campo</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for clave, valor in resultados %}
+                            <tr>
+                                <td><strong>{{ clave }}</strong></td>
+                                <td>{{ valor }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

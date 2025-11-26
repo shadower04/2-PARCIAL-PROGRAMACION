@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="jumbotron">
+            <h1 class="display-4">Bienvenido, {{ user.username }}!</h1>
+            <p class="lead">Sistema de Gestión de Alumnos</p>
+            <hr class="my-4">
+            <p>Gestiona tus alumnos, genera reportes y más.</p>
+            <a class="btn btn-primary btn-lg" href="{% url 'lista_alumnos' %}" role="button">
+                Ver Alumnos
+            </a>
+            <a class="btn btn-outline-secondary btn-lg" href="{% url 'scraping' %}" role="button">
+                Scraping Educativo
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

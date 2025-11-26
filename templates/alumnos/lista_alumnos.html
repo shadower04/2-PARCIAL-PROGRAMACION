@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Mis Alumnos</h2>
+    <a href="{% url 'crear_alumno' %}" class="btn btn-success">+ Nuevo Alumno</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Edad</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for alumno in alumnos %}
+            <tr>
+                <td>{{ alumno.nombre }} {{ alumno.apellido }}</td>
+                <td>{{ alumno.email }}</td>
+                <td>{{ alumno.edad }}</td>
+                <td>
+                    <span class="badge badge-{% if alumno.estado == 'activo' %}success{% else %}secondary{% endif %}">
+                        {{ alumno.get_estado_display }}
+                    </span>
+                </td>
+                <td>
+                    <form method="post" action="{% url 'enviar_pdf' alumno.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            📧 Enviar PDF
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">No hay alumnos registrados</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
